@@ -61,7 +61,7 @@ If you find this repo useful in your research works, please consider cite our pa
 
    ```bash
    cd ./preprocess
-   python data_preprocess.py --process-image --multiprocessing
+   python dataset_preprocess.py --process-image --multiprocessing
    ```
 
 ### Inference
