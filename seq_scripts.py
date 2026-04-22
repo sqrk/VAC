@@ -15,6 +15,11 @@ def seq_train(loader, model, optimizer, device, epoch_idx, recoder):
     model.train()
     loss_value = []
     clr = [group['lr'] for group in optimizer.optimizer.param_groups]
+    # with open('/nfs-stor/karima.kadaoui/tt.txt', 'w') as out:
+    #     out.write(str(loader.dataset.__dict__))
+    #     out.close()
+    # print(loader.dataset.inputs_list[161])
+    # quit()
     for batch_idx, data in enumerate(tqdm(loader)):
         vid = device.data_to_device(data[0])
         vid_lgt = device.data_to_device(data[1])
@@ -55,7 +60,8 @@ def seq_eval(cfg, loader, model, device, mode, epoch, work_dir, recoder,
         with torch.no_grad():
             ret_dict = model(vid, vid_lgt, label=label, label_lgt=label_lgt)
 
-        total_info += [file_name.split("|")[0] for file_name in data[-1]]
+        # total_info += [file_name.split("|")[0] for file_name in data[-1]]
+        total_info += [file_name['id'] for file_name in data[-1]]
         total_sent += ret_dict['recognized_sents']
         total_conv_sent += ret_dict['conv_sents']
     try:
@@ -93,8 +99,8 @@ def seq_feature_generation(loader, model, device, mode, work_dir, recoder):
     src_path = os.path.abspath(f"{work_dir}{mode}")
     tgt_path = os.path.abspath(f"./features/{mode}")
     if not os.path.exists("./features/"):
-    	os.makedirs("./features/")
-
+        os.makedirs("./features/")
+        
     if os.path.islink(tgt_path):
         curr_path = os.readlink(tgt_path)
         if work_dir[1:] in curr_path and os.path.isabs(curr_path):

@@ -18,6 +18,9 @@ import utils
 from modules.sync_batchnorm import convert_model
 from seq_scripts import seq_train, seq_eval, seq_feature_generation
 
+os.environ['CUDA_LAUNCH_BLOCKING']="1"
+os.environ['TORCH_USE_CUDA_DSA'] = "1"
+torch.backends.cudnn.enabled = False
 
 class Processor():
     def __init__(self, arg):
@@ -119,7 +122,7 @@ class Processor():
         return model
 
     def load_model_weights(self, model, weight_path):
-        state_dict = torch.load(weight_path)
+        state_dict = torch.load(weight_path, weights_only=False)
         if len(self.arg.ignore_weights):
             for w in self.arg.ignore_weights:
                 if state_dict.pop(w, None) is not None:
@@ -140,7 +143,7 @@ class Processor():
 
     def load_checkpoint_weights(self, model, optimizer):
         self.load_model_weights(model, self.arg.load_checkpoints)
-        state_dict = torch.load(self.arg.load_checkpoints)
+        state_dict = torch.load(self.arg.load_checkpoints, weights_only=False)
 
         if len(torch.cuda.get_rng_state_all()) == len(state_dict['rng_state']['cuda']):
             print("Loading random seeds...")

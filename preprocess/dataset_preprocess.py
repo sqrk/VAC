@@ -29,7 +29,7 @@ def csv2dict(anno_path, dataset_type):
         # fileid, folder, signer, label = file_info.split("|")
         fileid, term, gloss, path, framesfolder, url, signer, fsw  = inputs_list.loc[file_idx]
         # num_frames = len(glob.glob(f"{info_dict['prefix']}/{dataset_type}/{folder}"))  
-        num_frames = len(glob.glob(framesfolder))   # returns the number of files within the folder, i.e. need to first turn my videos to frames
+        num_frames = len(glob.glob(f"{framesfolder}/*"))   # returns the number of files within the folder, i.e. need to first turn my videos to frames
         info_dict[file_idx] = {
             'fileid': fileid,
             'folder': framesfolder,
@@ -106,13 +106,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Data process for Visual Alignment Constraint for Continuous Sign Language Recognition.')
     # parser.add_argument('--dataset', type=str, default='phoenix2014',
-    parser.add_argument('--dataset', type=str, default='sign2mint',
+    parser.add_argument('--dataset', type=str, default='sign2mint-space',
                         help='save prefix')
     # parser.add_argument('--dataset-root', type=str, default='../dataset/phoenix2014/phoenix-2014-multisigner',
     parser.add_argument('--dataset-root', type=str, default='../dataset/sign2mint',
                         help='path to the dataset')
     # parser.add_argument('--annotation-prefix', type=str, default='annotations/manual/{}.corpus.csv',
-    parser.add_argument('--annotation-prefix', type=str, default='manifests/{}.csv',
+    parser.add_argument('--annotation-prefix', type=str, default='manifests/{}-space.csv',
                         help='annotation prefix')
     parser.add_argument('--output-res', type=str, default='256x256px',
                         help='resize resolution for image sequence')

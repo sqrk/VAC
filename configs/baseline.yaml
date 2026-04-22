@@ -1,25 +1,26 @@
 feeder: dataset.dataloader_video.BaseFeeder
 phase: train
-dataset: phoenix14
+dataset: sign2mint-space
 # dataset: phoenix14-si5
 num_epoch: 40
 work_dir: ./work_dir/baseline_res18/
 batch_size: 2
 random_seed: 0
 test_batch_size: 8
-num_worker: 10
+num_worker: 2
 device: 0,1
 log_interval: 50
 eval_interval: 1
 save_interval: 5
 # python in default
-evaluate_tool: sclite
+# evaluate_tool: sclite
+evaluate_tool: python
 loss_weights:
   SeqCTC: 1.0
   # VAC
-  # ConvCTC: 1.0
-  # Dist: 10.0
-#load_weights: ''
+  ConvCTC: 1.0
+  Dist: 10.0
+# load_weights: './work_dir/sign2mintdev_100.00_epoch25_model.pt'
 
 optimizer_args:
   optimizer: Adam
@@ -44,5 +45,5 @@ model_args:
   conv_type: 2
   use_bn: 1
   # SMKD
-  share_classifier: False
-  weight_norm: False
+  share_classifier: True
+  weight_norm: True

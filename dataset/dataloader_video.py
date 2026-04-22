@@ -33,7 +33,7 @@ class BaseFeeder(data.Dataset):
         self.data_type = datatype
         self.feat_prefix = f"{prefix}/features/fullFrame-256x256px/{mode}"
         self.transform_mode = "train" if transform_mode else "test"
-        self.inputs_list = np.load(f"./preprocess/phoenix2014/{mode}_info.npy", allow_pickle=True).item()
+        self.inputs_list = np.load(f"./preprocess/sign2mint-space/{mode}_info.npy", allow_pickle=True).item()
         # self.inputs_list = np.load(f"{prefix}/annotations/manual/{mode}.corpus.npy", allow_pickle=True).item()
         # self.inputs_list = np.load(f"{prefix}/annotations/manual/{mode}.corpus.npy", allow_pickle=True).item()
         # self.inputs_list = dict([*filter(lambda x: isinstance(x[0], str) or x[0] < 10, self.inputs_list.items())])
@@ -58,8 +58,12 @@ class BaseFeeder(data.Dataset):
     def read_video(self, index, num_glosses=-1):
         # load file info
         fi = self.inputs_list[index]
-        img_folder = os.path.join(self.prefix, "features/fullFrame-256x256px/" + fi['folder'])
-        img_list = sorted(glob.glob(img_folder))
+        # img_folder = os.path.join(self.prefix, "features/fullFrame-256x256px/" + fi['folder'])
+        img_folder = os.path.join(self.prefix, "data/fullFrame-256x256px/" + fi['folder'].split('/')[-1])  #TODO Fix this by renaming the px folder in the manifests and redoing the dataset preprocess (without img resizing)
+        # print(self.prefix + "/data/fullFrame-256x256px/", fi['folder'].split('/')[-1])
+        img_list = sorted(glob.glob(f"{img_folder}/*"))
+        # print(f"{img_folder}/*")
+        # print(sorted(glob.glob(f"{img_folder}/*")))
         label_list = []
         for phase in fi['label'].split(" "):
             if phase == '':
