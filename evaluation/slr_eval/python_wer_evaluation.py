@@ -40,12 +40,12 @@ def get_wer_delsubins(ref, hyp, merge_same=False, align_results=False,
     ref_lgt = len(ref) + 1
     hyp_lgt = len(hyp) + 1
 
-    costs = np.ones((ref_lgt, hyp_lgt), dtype=np.int) * 1e6
+    costs = np.ones((ref_lgt, hyp_lgt), dtype=int) * 1e6
     # auxiliary values
     costs[0, :] = np.arange(hyp_lgt) * penalty['ins']
     costs[:, 0] = np.arange(ref_lgt) * penalty['del']
 
-    backtrace = np.zeros((ref_lgt, hyp_lgt), dtype=np.int)
+    backtrace = np.zeros((ref_lgt, hyp_lgt), dtype=int)
     # auxiliary indexes, 0, 1, 2, 3 are corresponding to correct, substitute, insert and delete, respectively
     backtrace[0, :] = 2
     backtrace[:, 0] = 3
@@ -225,6 +225,6 @@ def wer_calculation(gt_path, primary_pred, auxiliary_pred=None):
 
 
 if __name__ == '__main__':
-    wer_calculation('phoenix2014-groundtruth-dev.stm',
+    wer_calculation('sign2mint-space-core-groundtruth-dev.stm',  # TODO refactor
                     'out.output-hypothesis-dev.ctm')
     #                     'out.output-hypothesis-dev-conv.ctm')

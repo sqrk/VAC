@@ -1,9 +1,9 @@
 feeder: dataset.dataloader_video.BaseFeeder
 phase: train
-dataset: sign2mint-space
+dataset: sign2mint-space-core #MOD
 # dataset: phoenix14-si5
-num_epoch: 40
-work_dir: ./work_dir/baseline_res18/
+num_epoch: 500
+work_dir: ./work_dir/sign2mint-space-core/ #MOD
 batch_size: 2
 random_seed: 0
 test_batch_size: 8
@@ -11,7 +11,7 @@ num_worker: 2
 device: 0,1
 log_interval: 50
 eval_interval: 1
-save_interval: 5
+save_interval: 2
 # python in default
 # evaluate_tool: sclite
 evaluate_tool: python
@@ -20,7 +20,8 @@ loss_weights:
   # VAC
   ConvCTC: 1.0
   Dist: 10.0
-# load_weights: './work_dir/sign2mintdev_100.00_epoch25_model.pt'
+# load_weights: './work_dir/sign2mint-space-coredev_100.00_epoch50_model.pt' #MOD
+load_checkpoints: './work_dir/dev_66.37_epoch138_model.pt' #MOD
 
 optimizer_args:
   optimizer: Adam
@@ -28,7 +29,7 @@ optimizer_args:
   step: [ 20, 35]
   learning_ratio: 1
   weight_decay: 0.0001
-  start_epoch: 0
+  start_epoch: 139  # MOD
   nesterov: False
 
 feeder_args:

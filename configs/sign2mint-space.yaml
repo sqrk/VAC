@@ -1,0 +1,4 @@
+dataset_root: ./dataset/sign2mint
+dict_path: ./preprocess/sign2mint-space/gloss_dict.npy
+evaluation_dir: ./evaluation/slr_eval
+evaluation_prefix: sign2mint-space-groundtruth

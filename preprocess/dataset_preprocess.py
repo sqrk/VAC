@@ -106,13 +106,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Data process for Visual Alignment Constraint for Continuous Sign Language Recognition.')
     # parser.add_argument('--dataset', type=str, default='phoenix2014',
-    parser.add_argument('--dataset', type=str, default='sign2mint-space',
+    parser.add_argument('--dataset', type=str, default='sign2mint-space-core',
                         help='save prefix')
     # parser.add_argument('--dataset-root', type=str, default='../dataset/phoenix2014/phoenix-2014-multisigner',
     parser.add_argument('--dataset-root', type=str, default='../dataset/sign2mint',
                         help='path to the dataset')
     # parser.add_argument('--annotation-prefix', type=str, default='annotations/manual/{}.corpus.csv',
-    parser.add_argument('--annotation-prefix', type=str, default='manifests/{}-space.csv',
+    parser.add_argument('--annotation-prefix', type=str, default='manifests/{}-space-core.csv',
                         help='annotation prefix')
     parser.add_argument('--output-res', type=str, default='256x256px',
                         help='resize resolution for image sequence')
